@@ -46,7 +46,8 @@ public class Species {
 	}
 
 	public String toString() {
-		return "name:" + getName() + "\n" +
+		return "** Specie of Wetland **\n" +
+				"name:" + getName() + "\n" +
 				"ScientificName:" + getScientificName() + "\n" +
 				"migratorySpecies:" + getMigratorySpecies() + "\n" +
 				"type:" + getType() + ".";

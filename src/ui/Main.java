@@ -39,7 +39,7 @@ public class Main {
 	/**
 	 * Metodo que muestra el menu de la aplicacion
 	 * 
-	 * @return input, int es la opciOn elegida por el usuario
+	 * @return option, int es la opcion elegida por el usuario
 	 */
 	public int showMenu() {
 		int option;
@@ -51,7 +51,7 @@ public class Main {
 				"(5) Name of the wetland with less species of flora\n" +
 				"(6) Wetlands in which a species is found\n" +
 				"(7) Wetlands information\n" +
-				"(8) Name of the wetland with the largest number of animals\n" +
+				"(8) Name of the wetland with the more number of animals\n" +
 				"(0) To end the program.");
 		option = sc.nextInt();
 		sc.nextLine();
@@ -65,7 +65,7 @@ public class Main {
 	public void answer(int userOption) {
 		switch (userOption) {
 			case 0:
-				System.out.println("cerrando la aplicaciOn, bye");
+				System.out.println("Bye.");
 				break;
 			case 1:
 				createWetland();
@@ -80,16 +80,17 @@ public class Main {
 				consultMaintenance();
 				break;
 			case 5:
-
+				consultWetlandLessFlora();
 				break;
 			case 6:
 				consultSpecie();
 				break;
 			case 7:
-				System.out.println("La informaciOn de los humedales es:");
+				System.out.println("The information of Wetlands is:");
 				wetlandc.listWetlands();
 				break;
 			case 8:
+				consultWetlandMoreAnimals();
 				break;
 		}
 
@@ -162,4 +163,11 @@ public class Main {
 		wetlandc.listSpecie(name);
 	}
 
+	public void consultWetlandLessFlora() {
+		System.out.println("The Wetland with less flora is: " + wetlandc.wetlandLessFlora());
+	}
+
+	public void consultWetlandMoreAnimals() {
+		System.out.println("The Wetland with more number of animals is: " + wetlandc.wetlandMoreAnimals());
+	}
 }

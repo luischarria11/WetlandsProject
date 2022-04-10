@@ -13,6 +13,9 @@ public class Wetland {
 	private double quantityOfKm2;
 	private String urlPhoto;
 	private ProtectedArea protectedArea;
+	private int floraSpecies;
+	private int animalSpecies;
+	private int num;
 	// relationships
 	private ManagementPlan managementPlanOfWetland;
 	private Species[] species;
@@ -26,19 +29,32 @@ public class Wetland {
 		this.quantityOfKm2 = quantityOfKm2;
 		this.urlPhoto = urlPhoto;
 		this.protectedArea = protectedArea;
+		floraSpecies = 0;
+		animalSpecies = 0;
+		num = 0;
 		species = new Species[MAX_SPECIES];
 		events = new Event[MAX_EVENTS];
 	}
 
-	public String addSpecie(Species s) {
+	public void calculateNumberSpecies(TypeSpecie type) {
+		if (type == TypeSpecie.FLORA_ACUATICA || type == TypeSpecie.FLORA_TERRESTRE) {
+			floraSpecies = floraSpecies + 1;
+		}
+		if (type == TypeSpecie.AVE || type == TypeSpecie.MAMIFERO || type == TypeSpecie.ACUATICO) {
+			animalSpecies = animalSpecies + 1;
+		}
+	}
+
+	public String addSpecie(Species s, TypeSpecie type) {
 		String out = "";
 		int empty = findEmpty();
 		if (empty != -1) {
 			species[empty] = s;
 			out = "Specie registered succesfuly";
 		} else {
-			out = "El arreglo está lleno.";
+			out = "The array is full.";
 		}
+		calculateNumberSpecies(type);
 		return out;
 	}
 
@@ -49,7 +65,7 @@ public class Wetland {
 			events[empty] = e;
 			out = "Event registered succesfuly";
 		} else {
-			out = "El arreglo está lleno.";
+			out = "The array is full.";
 		}
 		return out;
 	}
@@ -67,7 +83,6 @@ public class Wetland {
 	}
 
 	public int numMaintenance(int year) {
-		int num = 0;
 		for (int i = 0; i < MAX_EVENTS; i++) {
 			if (events[i] != null && events[i].getType() == EventType.MANTENIMIENTO
 					&& events[i].numMaintenance() == year) {
@@ -145,13 +160,30 @@ public class Wetland {
 		this.protectedArea = protectedArea;
 	}
 
+	public int getFloraSpecies() {
+		return this.floraSpecies;
+	}
+
+	public void setFloraSpecies(int floraSpecies) {
+		this.floraSpecies = floraSpecies;
+	}
+
+	public int getAnimalSpecies() {
+		return this.animalSpecies;
+	}
+
+	public void setAnimalSpecies(int animalSpecies) {
+		this.animalSpecies = animalSpecies;
+	}
+
 	public String toString() {
-		return "name=" + getName() + "\n" +
-				"ubication=" + getUbication() + "\n" +
+		return "\n**** Wetland ****\n" +
+				"name:" + getName() + "\n" +
+				"ubication:" + getUbication() + "\n" +
 				"type=" + getType() + "\n" +
-				"quantityOfKm2=" + getQuantityOfKm2() + "\n" +
-				"urlPhoto=" + getUrlPhoto() + "\n" +
-				"protectedArea=" + getProtectedArea() + "\n";
+				"quantityOfKm2:" + getQuantityOfKm2() + "\n" +
+				"urlPhoto:" + getUrlPhoto() + "\n" +
+				"protectedArea:" + getProtectedArea() + "\n";
 	}
 
 }

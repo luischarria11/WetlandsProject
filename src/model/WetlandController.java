@@ -73,7 +73,7 @@ public class WetlandController {
         }
         switch (numType) {
             case 1:
-                type = TypeSpecie.FLORA_TERRESTE;
+                type = TypeSpecie.FLORA_TERRESTRE;
                 break;
             case 2:
                 type = TypeSpecie.FLORA_ACUATICA;
@@ -92,12 +92,32 @@ public class WetlandController {
             if (wetlands[i] != null && wetlands[i].getName().equalsIgnoreCase(nameWetland)) {
                 flag = true;
                 Species s = new Species(name, scientificName, migratorySpecies, type);
-                out = wetlands[i].addSpecie(s);
+                out = wetlands[i].addSpecie(s, type);
             } else {
                 out = "Wetland already not exist.";
             }
         }
         return out;
+    }
+
+    public String wetlandLessFlora() {
+        int position = 0;
+        for (int i = 0; i < NUM_WETLANDS; i++) {
+            if (wetlands[i] != null && wetlands[position].getFloraSpecies() > wetlands[i].getFloraSpecies()) {
+                position = i;
+            }
+        }
+        return wetlands[position].getName();
+    }
+
+    public String wetlandMoreAnimals() {
+        int position = 0;
+        for (int i = 0; i < NUM_WETLANDS; i++) {
+            if (wetlands[i] != null && wetlands[position].getAnimalSpecies() < wetlands[i].getAnimalSpecies()) {
+                position = i;
+            }
+        }
+        return wetlands[position].getName();
     }
 
     public String addEvent(String nameWetland, int numEventType, String organizer, double cost, String description,
